@@ -18,7 +18,7 @@ import math
 
 grid = [[0, 0, 1, 0, 0, 0],
         [0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 1, 0],
         [0, 0, 1, 1, 1, 0],
         [0, 0, 0, 0, 1, 0]]
 init = [0, 0]
@@ -49,6 +49,7 @@ def search(grid,init,goal,cost):
     currentNodes=[]
     newOpenList=[]
     isContinue = True
+    isWay = True
 
     while (isContinue):
 
@@ -68,54 +69,59 @@ def search(grid,init,goal,cost):
 
                             currentNodes.append([currentX,currentY])
 
-                            isContinue = True
 
-        print("new open list:")
-        maxCost = math.inf
-        for ii in range(0,len(currentNodes)):
-            if currentNodes[ii] not in checked:
-                # put in checked
-                checked.extend([currentNodes[ii]])
+        if not currentNodes:
+            isContinue = False
+            isWay  = False
+            print("fail")
 
-                # put in  newOpenList and add cost
-                addPointsX = currentNodes[ii][0]
-                addPointsY = currentNodes[ii][1]
-                newOpenList.extend([[addPointsX,addPointsY]])
+        if isWay:
+            print("new open list:")
+            maxCost = math.inf
+            for ii in range(0,len(currentNodes)):
+                if currentNodes[ii] not in checked:
+                    # put in checked
+                    checked.extend([currentNodes[ii]])
 
-                #append to new open list
-                indexOfnewOpenList = len(newOpenList)-1
-                newOpenList[indexOfnewOpenList].insert(0,cost)
+                    # put in  newOpenList and add cost
+                    addPointsX = currentNodes[ii][0]
+                    addPointsY = currentNodes[ii][1]
+                    newOpenList.extend([[addPointsX,addPointsY]])
+
+                    #append to new open list
+                    indexOfnewOpenList = len(newOpenList)-1
+                    newOpenList[indexOfnewOpenList].insert(0,cost)
 
 
-            print(newOpenList[ii])
-            if(newOpenList[ii][0] <= maxCost):
-                maxCost = newOpenList[ii][0]
-                indexToBeRemoved = ii
+                print(newOpenList[ii])
+                if(newOpenList[ii][0] <= maxCost):
+                    maxCost = newOpenList[ii][0]
+                    indexToBeRemoved = ii
 
-        # Remove that index for  the newOpenList
-        print("take list item :")
-        print(newOpenList[indexToBeRemoved])
+            # Remove that index for  the newOpenList
+            print("take list item :")
+            print(newOpenList[indexToBeRemoved])
 
-        # put this is visited
-        visited.append(newOpenList[indexToBeRemoved][1:3])
+            # put this is visited
+            visited.append(newOpenList[indexToBeRemoved][1:3])
 
-        cost = newOpenList[indexToBeRemoved][0]
+            cost = newOpenList[indexToBeRemoved][0]
 
-        #Update rowIndex and colIndex
-        rowIdx = newOpenList[indexToBeRemoved][1]
-        colIdx = newOpenList[indexToBeRemoved][2]
+            #Update rowIndex and colIndex
+            rowIdx = newOpenList[indexToBeRemoved][1]
+            colIdx = newOpenList[indexToBeRemoved][2]
 
-        # now delete from newOpenList and currentNodes
-        del newOpenList[indexToBeRemoved]
-        del currentNodes[indexToBeRemoved]
+            # now delete from newOpenList and currentNodes
+            del newOpenList[indexToBeRemoved]
+            del currentNodes[indexToBeRemoved]
 
-        # Increase cost
-        cost = cost + 1
+            # Increase cost
+            cost = cost + 1
 
-        # Stopping criteria
-        if ( (rowIdx == goal[0]) and (colIdx == goal[1]) ) :
-            isContinue=False
-            print("Goal Reached !!")
+            # Stopping criteria
+            if ( (rowIdx == goal[0]) and (colIdx == goal[1]) ) :
+                isContinue=False
+                print("Goal Reached !!")
     path =0
     return path
 
