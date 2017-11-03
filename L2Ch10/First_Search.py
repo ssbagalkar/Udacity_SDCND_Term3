@@ -51,8 +51,8 @@ def search(grid,init,goal,cost):
     isContinue = True
 
     while (isContinue):
-        # search in all 4 directions of current node
 
+        # search in all 4 directions of current node
         for ii in range(0,4):
             currentX = rowIdx + delta[ii][0]
             currentY = colIdx + delta[ii][1]
@@ -111,8 +111,7 @@ def search(grid,init,goal,cost):
         # Increase cost
         cost = cost + 1
 
-
-
+        # Stopping criteria
         if ( (rowIdx == goal[0]) and (colIdx == goal[1]) ) :
             isContinue=False
             print("Goal Reached !!")
