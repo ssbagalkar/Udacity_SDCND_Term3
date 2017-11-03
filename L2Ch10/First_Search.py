@@ -58,17 +58,18 @@ def search(grid,init,goal,cost):
             currentY = colIdx + delta[ii][1]
 
             # Check if the row and col indexes are within bounds
-            if ((currentX < xLimitStart ) or (currentX > xLimitEnd) or (currentY<yLimitStart) or (currentY > yLimitEnd)):
-                print ("Out of bounds")## do something to restrict
-            elif (grid[currentX][currentY] == 1):
-                print("Wall encountered")## do something
-            elif ([currentX,currentY] in visited):
-                print("Already visited")
-            elif ( [currentX,currentY] in currentNodes):
-                print("Already in currentNodes")
-            else:
+            if ((currentX >= xLimitStart ) and (currentX <= xLimitEnd) and (currentY >= yLimitStart) and (currentY <= yLimitEnd)):
 
-                currentNodes.append([currentX,currentY])
+                if (grid[currentX][currentY] != 1):
+
+                    if ([currentX,currentY] not in visited):
+
+                        if ( [currentX,currentY] not in currentNodes):
+
+                            currentNodes.append([currentX,currentY])
+
+                            isContinue = True
+
         print("new open list:")
         maxCost = math.inf
         for ii in range(0,len(currentNodes)):
