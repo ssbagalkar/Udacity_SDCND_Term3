@@ -50,7 +50,10 @@ def search(grid,init,goal,cost):
     newOpenList=[]
     isContinue = True
     isWay = True
-    expansionGrid = [[-1 for x in range(len(grid))] for y in range(len(grid))]
+    expansionGrid = [[-1 for x in range(len(grid)+1)] for y in range(len(grid))]
+    expansionCost = 0
+    expansionGrid[0][0]=expansionCost
+
 
 
     while (isContinue):
@@ -107,6 +110,11 @@ def search(grid,init,goal,cost):
             # put this is visited
             visited.append(newOpenList[indexToBeRemoved][1:3])
 
+            # increase expansionCost of the index put in visited by 1
+            expansionCost +=1
+            gridIndex = visited[-1]
+            expansionGrid[gridIndex[0]][gridIndex[1]] = expansionCost
+
             cost = newOpenList[indexToBeRemoved][0]
 
             #Update rowIndex and colIndex
@@ -124,7 +132,7 @@ def search(grid,init,goal,cost):
             if ( (rowIdx == goal[0]) and (colIdx == goal[1]) ) :
                 isContinue=False
                 print("Goal Reached !!")
-    path =0
-    return path
 
-path = search(grid,init,goal,cost)
+    return expansionGrid
+
+print (search(grid,init,goal,cost))
