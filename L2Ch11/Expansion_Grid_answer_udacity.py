@@ -48,27 +48,33 @@ def search(grid,init,goal,cost):
     found = False  #flag to indicate when goal is found
     resign = False #flag to indicate when there is no possibility for expansion
 
-    print('initial open list:')
-    for i in range(len(open)):
-        print(' ', open[i])
-    print ('----')
+    expansionGrid = [[-1 for x in range(len(grid) + 1)] for y in range(len(grid))]
+    expansionCost = 0
+    expansionGrid[x][y] = expansionCost
+
+    # print('initial open list:')
+    # for i in range(len(open)):
+    #     print(' ', open[i])
+    # print ('----')
 
     while found is False and resign is False:
 
         # check if we still have elements in the open list
         if len(open) == 0:
             resign = True
-            print('fail')
+            # print('fail')
 
         else:
             #remove node from list
             open.sort()
             open.reverse()
             next = open.pop()
+            expansionGrid[next[1]][next[2]] = expansionCost
+            expansionCost+=1
 
-            print('take element from list:')
-            print(next)
-            print('---')
+            # print('take element from list:')
+            # print(next)
+            # print('---')
 
             x = next[1]
             y = next[2]
@@ -77,12 +83,12 @@ def search(grid,init,goal,cost):
             # check if we are done
             if x == goal[0] and y == goal[1]:
                 found = True
-                print(next)
-                print('success!!')
+                # print(next)
+                # print('success!!')
 
             else:
                 # expand winning element and add to new open list
-                print('new open list')
+                # print('new open list')
                 for i in range(len(delta)):
                     x2 = x + delta[i][0]
                     y2 = y + delta[i][1]
@@ -92,14 +98,13 @@ def search(grid,init,goal,cost):
                             open.append([g2,x2,y2])
                             closed[x2][y2] = 1
 
-                for i in range(len(open)):
-                    print(open[i])
-
-    path = 0
-    return path
+    for i in range(len(expansionGrid)):
+        print(expansionGrid[i])
 
 
+    return 0
 
 
 
-path = search(grid,init,goal,cost)
+
+search(grid,init,goal,cost)
