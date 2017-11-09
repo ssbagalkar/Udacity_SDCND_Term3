@@ -9,11 +9,10 @@
 # assign that cell a value of 99.
 # ----------
 
-grid = [[0, 1, 1, 0, 0, 0],
-        [0, 1, 1, 0, 0, 0],
-        [0, 1, 1, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 0, 1, 1, 1, 0],
+grid = [[0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
         [0, 0, 0, 0, 1, 0]]
 goal = [len(grid) - 1, len(grid[0]) - 1]
 cost = 1  # the cost associated with moving from a cell to an adjacent one
@@ -26,7 +25,7 @@ delta = [[-1, 0],  # go up
 delta_name = ['^', '<', 'v', '>']
 
 
-def compute_value(grid, goal, cost):
+def optimum_policy(grid, goal, cost):
     # ----------------------------------------
     # insert code below
     # ----------------------------------------
@@ -89,8 +88,8 @@ def compute_value(grid, goal, cost):
                     policy[row][col] = delta_name[action[row][col]]
 
 
-    for i in range(len(policy)):
-        print(policy[i])
-    return 0
-expand = compute_value(grid, goal, cost)
+    return policy
+policy = optimum_policy(grid, goal, cost)
+for i in range(len(policy)):
+    print(policy[i])
 
