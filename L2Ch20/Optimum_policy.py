@@ -11,8 +11,8 @@
 
 grid = [[0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0, 0],
         [0, 0, 0, 0, 1, 0]]
 goal = [len(grid) - 1, len(grid[0]) - 1]
 cost = 1  # the cost associated with moving from a cell to an adjacent one
