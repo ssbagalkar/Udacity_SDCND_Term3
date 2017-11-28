@@ -5,7 +5,7 @@ import json
 
 def main():
 	gnb = GNB()
-	with open('train.json', 'rb') as f:
+	with open('train.json') as f:
 		j = json.load(f)
 	print (j.keys())
 	X = j['states']
