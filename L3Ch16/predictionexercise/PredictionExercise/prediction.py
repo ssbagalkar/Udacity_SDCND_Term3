@@ -12,7 +12,7 @@ def main():
 	Y = j['labels']
 	gnb.train(X, Y)
 
-	with open('test.json', 'rb') as f:
+	with open('test.json') as f:
 		j = json.load(f)
 
 	X = j['states']
