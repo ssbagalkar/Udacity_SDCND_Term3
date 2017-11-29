@@ -48,7 +48,14 @@ class GNB(object):
 			summaries = [(mean(attribute), stdev(attribute)) for attribute in zip(*data)]
 			return summaries
 
-		summarizeData = summarize(data)
+
+		def summarizeByClass(data,labels):
+			separated = separateByClass(data,labels)
+			summaries = {}
+			for direction, locationVector in separated.items():
+				summaries[direction] = summarize(locationVector)
+			return summaries
+		summarizeData = summarizeByClass(data,labels)
 		pass
 
 	def predict(self, observation):
