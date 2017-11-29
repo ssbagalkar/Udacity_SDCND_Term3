@@ -55,7 +55,8 @@ class GNB(object):
 			for direction, locationVector in separated.items():
 				summaries[direction] = summarize(locationVector)
 			return summaries
-		summarizeData = summarizeByClass(data,labels)
+
+		trainedData = summarizeByClass(data,labels)
 		pass
 
 	def predict(self, observation):
