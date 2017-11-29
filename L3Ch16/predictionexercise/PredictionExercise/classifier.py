@@ -56,8 +56,7 @@ class GNB(object):
 				summaries[direction] = summarize(locationVector)
 			return summaries
 
-		trainedData = summarizeByClass(data,labels)
-		pass
+		self.trainedData = summarizeByClass(data,labels)
 
 	def predict(self, observation):
 		"""
@@ -75,4 +74,22 @@ class GNB(object):
 		be one of "left", "keep" or "right".
 		"""
 		# TODO - complete this
+
+
+		def calculateProbability(observation, mean, stdev):
+			exponent = math.exp(-(math.pow(observation - mean, 2) / (2 * math.pow(stdev, 2))))
+			return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
+
+
+		def calculateClassProbabilities(trainedData, observation):
+			probabilities = {}
+			for classValue, classSummaries in trainedData.items():
+				probabilities[classValue] = 1
+				for i in range(len(classSummaries)):
+					mean, stdev = classSummaries[i]
+					x = observation[i]
+					probabilities[classValue] *= calculateProbability(x, mean, stdev)
+			return probabilities
+
+		probabilities = calculateClassProbabilities(self.trainedData,observation)
 		return self.possible_labels[1]
