@@ -45,11 +45,25 @@ class Vehicle(object):
             Included from cost.cpp, computes the cost for a trajectory.
         """
 
-        #Your code here
 
-        #Change return value here
-        return [Vehicle(self.lane, self.s, self.v, self.a, self.state), 
-                      Vehicle(self.lane, self.position_at(1), self.v, 0, self.state)]
+        # Your code here
+        possible_successor_states = self.successor_states()
+
+        # keep track of total costs for each state
+        costs = []
+
+        for state in possible_successor_states:
+            # generate a rough idea of what trajectory we would
+            # follow IF we chose this state.
+            trajectory_for_state = self.generate_trajectory(state,predictions)
+            if trajectory_for_state:
+
+                # calculate all costs associated with that trajectory
+                cost_for_state = calculate_cost(self,trajectory_for_state,predictions)
+                costs.append({"cost": cost_for_state, "state": state, "trajectory": trajectory_for_state})
+
+        best = min(costs, key=lambda s: s['cost'])
+        return best["trajectory"]
 
 
     def successor_states(self):
@@ -209,7 +223,7 @@ class Vehicle(object):
         goal = road_data['goal']
         self.goal_lane = goal[1]
         self.goal_s = goal[0]
-                            
+
 
 
 

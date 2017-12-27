@@ -54,7 +54,7 @@ def calculate_cost(vehicle, trajectory, predictions):
 def get_helper_data(vehicle, trajectory, predictions):
     """
     Generate helper data to use in cost functions:
-    indended_lane:  +/- 1 from the current lane if the ehicle is planning or executing a lane change.
+    indended_lane:  +/- 1 from the current lane if the vehicle is planning or executing a lane change.
     final_lane: The lane of the vehicle at the end of the trajectory. The lane is unchanged for KL and PLCL/PLCR trajectories.
     distance_to_goal: The s distance of the vehicle to the goal.
 
